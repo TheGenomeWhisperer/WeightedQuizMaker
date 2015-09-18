@@ -12,13 +12,10 @@ public class QuizMaker {
 
 		String unParsedQuestions = questions;
 		String temp = "";
-
 	}
-	
 	// Default Constructor
 	public QuizMaker(){}
 	
-
 	public void setQuestion(String question){
 		List<String> leadQuestion = Arrays.asList(question);
 		allQuestions.add(leadQuestion);
@@ -61,11 +58,18 @@ public class QuizMaker {
 		return 0;
 	}
 
-	public String getWinner()
-	{
+	public String getWinner(){
 		String winner = "";
 		return winner;
 	}
+	public String getQuestion(int num){
+		
+	}
 	
+	// Method:	"getQuestion(String)"
+	// Purpose:	To Return the main question
+	public String getQuestionAnswers(String question){
+		
+	}
 	
 }
