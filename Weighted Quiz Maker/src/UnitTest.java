@@ -49,5 +49,20 @@ public class UnitTest {
 		assertEquals(0,test.getScore(C4));
 		assertEquals(999999,test.getScore(C2));
 	}
+	
+	@Test
+	public void clearScoresTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Test";
+		String C2 = "Test5";
+		String C3 = "TestMe!";
+		test.addScore(C3, 18);
+		test.addScore(C3, 2);
+		test.addScore(C2, 999999);
+		test.resetAllScores();
+		assertTrue(test.getScore(C1) == 0);
+		assertTrue(test.getScore(C3) == 0);
+		assertEquals(0,test.getScore(C2));
+	}
 
 }

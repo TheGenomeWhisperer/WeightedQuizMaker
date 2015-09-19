@@ -8,11 +8,6 @@ public class QuizMaker {
 	public List<String> allCandidates = new ArrayList<String>();
 	public ArrayList<List<Object>> Scores = new ArrayList<List<Object>>();
 
-	public QuizMaker(int numQuestions, String questions) {
-
-		String unParsedQuestions = questions;
-		String temp = "";
-	}
 	// Default Constructor
 	public QuizMaker(){}
 	
@@ -44,13 +39,45 @@ public class QuizMaker {
 		}
 	}
 	
-	public void removeCandidate(String candidate){
-		for (int i = 0; i < allCandidates.size(); i++){
-			if (allCandidates.get(i).equals(candidate)){
-				allCandidates.remove(i);
+	public void setAnswerChoice(String question, String answer){
+		for (int i = 0; i < allQuestions.size(); i++){
+			if (allQuestions.get(i).get(0).equals(question)){
+				allQuestions.get(i).add(answer);
+				break;
 			}
 		}
 	}
+	
+	public void removeAnswerChoice(String question, String answer){
+		for (int i = 0; i < allQuestions.size(); i++){
+			if (allQuestions.get(i).get(0).equals(question)){
+				for (int j = 0; j < allQuestions.get(i).size(); j++) {
+					if (allQuestions.get(i).get(j).equals(question)){
+						allQuestions.get(i).remove(j);
+						break;
+					}
+				}
+				break;
+			}
+		}
+	}
+	public void removeCandidate(String candidate){
+		// Remove from allCandidates
+		for (int i = 0; i < allCandidates.size(); i++){
+			if (allCandidates.get(i).equals(candidate)){
+				allCandidates.remove(i);
+				break;
+			}
+		}
+		// Remove from thinner List
+		for (int i = 0; i < Scores.size(); i++){
+			if (Scores.get(i).get(0).equals(candidate)){
+				Scores.get(i).remove(0);
+				break;
+			}
+		}
+	}
+	
 	public void removeQuestion(String question) {
 		int index = -1;
 		for (int i = 0; i < allQuestions.size(); i++){
@@ -64,6 +91,12 @@ public class QuizMaker {
 		}
 		else {
 			allQuestions.remove(index);
+		}
+	}
+	
+	public void resetAllScores(){
+		for (int i = 0; i < Scores.size(); i++){
+			Scores.get(i).set(1, 0);
 		}
 	}
 	
