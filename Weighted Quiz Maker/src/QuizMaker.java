@@ -22,6 +22,8 @@ public class QuizMaker {
 	}
 	
 	public void setQuestionAt(int position, String question){
+		// Makes position play nice with array index.
+		position = position -1;
 		List<String> leadQuestion = Arrays.asList(question);
 		allQuestions.add(position, leadQuestion);
 	}
@@ -32,6 +34,23 @@ public class QuizMaker {
 		Scores.add(thisList);
 	}
 	
+	public void addScore(String candidate, int num){
+		for (int i = 0; i < Scores.size(); i++){
+			if (Scores.get(i).get(0).equals(candidate)){
+				int newNum = (int)Scores.get(i).get(1) + num;
+				Scores.get(i).set(1, (Object)newNum);
+				break;
+			}
+		}
+	}
+	
+	public void removeCandidate(String candidate){
+		for (int i = 0; i < allCandidates.size(); i++){
+			if (allCandidates.get(i).equals(candidate)){
+				allCandidates.remove(i);
+			}
+		}
+	}
 	public void removeQuestion(String question) {
 		int index = -1;
 		for (int i = 0; i < allQuestions.size(); i++){

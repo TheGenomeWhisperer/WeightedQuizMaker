@@ -26,5 +26,28 @@ public class UnitTest {
 			System.out.println(test.allQuestions.get(i).get(0));
 		}
 	}
+	
+	@Test
+	public void getScoreTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Aaron";
+		String C2 = "Abby";
+		String C3 = "Allison";
+		String C4 = "Amelia";
+		test.setCandidate(C1);
+		test.setCandidate(C3);
+		test.setCandidate(C2);
+		test.setCandidate(C4);
+		test.addScore(C1, 5);
+		test.addScore(C1, 3);
+		test.addScore(C3, 18);
+		test.addScore(C3, 2);
+		test.addScore(C2, 999999);
+		test.addScore(C4,0);
+		assertTrue(test.getScore(C1) == 8);
+		assertTrue(test.getScore(C3) == 20);
+		assertEquals(0,test.getScore(C4));
+		assertEquals(999999,test.getScore(C2));
+	}
 
 }
