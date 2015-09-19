@@ -63,13 +63,15 @@ public class QuizMaker {
 		return winner;
 	}
 	public String getQuestion(int num){
-		
+		// Getting number to play nicely with the index of the arrays.
+		num = num - 1;
+		return allQuestions.get(num).get(0);
 	}
 	
 	// Method:	"getQuestion(String)"
 	// Purpose:	To Return the main question
 	public String getQuestionAnswers(String question){
-		
+		return "";
 	}
 	
 }
