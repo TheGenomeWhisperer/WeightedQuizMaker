@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.Scanner;
+
 import org.junit.Test;
 
 public class UnitTest {
@@ -63,6 +65,55 @@ public class UnitTest {
 		assertTrue(test.getScore(C1) == 0);
 		assertTrue(test.getScore(C3) == 0);
 		assertEquals(0,test.getScore(C2));
+	}
+	
+	@Test
+	public void getWinnerTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Aaron";
+		String C2 = "Abby";
+		String C3 = "Allison";
+		String C4 = "Amelia";
+		test.setCandidate(C1);
+		test.setCandidate(C3);
+		test.setCandidate(C2);
+		test.setCandidate(C4);
+		test.addScore(C1, 18);
+		test.addScore(C1, 2);
+		test.addScore(C3, 18);
+		test.addScore(C3, 2);
+		test.addScore(C2, 20);
+		test.addScore(C4,0);
+		System.out.println(test.getWinner());
+	}
+	
+	@Test
+	public void getNumWinnersTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Aaron";
+		String C2 = "Abby";
+		String C3 = "Allison";
+		String C4 = "Amelia";
+		test.setCandidate(C1);
+		test.setCandidate(C3);
+		test.setCandidate(C2);
+		test.setCandidate(C4);
+		test.addScore(C1, 100);
+		test.addScore(C1, 0);
+		test.addScore(C3, 18);
+		test.addScore(C3, 2);
+		test.addScore(C2, 100);
+		test.addScore(C4,100);
+		int num = test.getNumWinners();
+		System.out.println(num);
+		Scanner names = new Scanner(test.getWinner());
+		if (num > 1) {
+			System.out.println("You are tied in compatibility with " + num + " Candidates!\nThey are:");
+			while(names.hasNext()){
+				System.out.println(names.next());
+			}
+		}
+		names.close();
 	}
 
 }

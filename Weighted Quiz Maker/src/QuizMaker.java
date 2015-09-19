@@ -111,8 +111,36 @@ public class QuizMaker {
 	}
 
 	public String getWinner(){
-		String winner = "";
-		return winner;
+		int highScore = -1;
+		String winners = "";
+		int numTies = 0;
+		for (int i = 0; i < Scores.size(); i++){
+			if((int)Scores.get(i).get(1) > highScore){
+				highScore = (int)Scores.get(i).get(1);
+				winners = (String)Scores.get(i).get(0) + " ";
+				numTies = 0;
+			}
+			else if ((int)Scores.get(i).get(1) == highScore){
+				numTies++;
+				winners += (String)Scores.get(i).get(0) + " ";
+			}
+		}
+		return winners.trim();
+	}
+	
+	public int getNumWinners(){
+		int numWinners = 1;
+		String winners = getWinner();
+		Scanner names = new Scanner(winners);
+		if (winners.contains(" ")){
+			names.next();
+			while (names.hasNext()){
+				numWinners++;
+				names.next();
+			}
+		}
+		names.close();
+		return numWinners;
 	}
 	public String getQuestion(int num){
 		// Getting number to play nicely with the index of the arrays.
