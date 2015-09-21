@@ -7,10 +7,21 @@ public class QuizMaker {
 	public ArrayList<List<String>> allQuestions = new ArrayList<List<String>>();
 	public List<String> allCandidates = new ArrayList<String>();
 	public ArrayList<List<Object>> Scores = new ArrayList<List<Object>>();
+	public ArrayList<List<Integer>> weights = new ArrayList<List<Integer>>();
 
 	// Default Constructor
 	public QuizMaker(){}
 	
+	public void addScore(String candidate, int num){
+		for (int i = 0; i < Scores.size(); i++){
+			if (Scores.get(i).get(0).equals(candidate)){
+				int newNum = (int)Scores.get(i).get(1) + num;
+				Scores.get(i).set(1, (Object)newNum);
+				break;
+			}
+		}
+	}
+
 	public void setQuestion(String question){
 		List<String> leadQuestion = Arrays.asList(question);
 		allQuestions.add(leadQuestion);
@@ -27,16 +38,6 @@ public class QuizMaker {
 		allCandidates.add(candidate);
 		List<Object> thisList = Arrays.asList(candidate,0);
 		Scores.add(thisList);
-	}
-	
-	public void addScore(String candidate, int num){
-		for (int i = 0; i < Scores.size(); i++){
-			if (Scores.get(i).get(0).equals(candidate)){
-				int newNum = (int)Scores.get(i).get(1) + num;
-				Scores.get(i).set(1, (Object)newNum);
-				break;
-			}
-		}
 	}
 	
 	public void setAnswerChoice(String question, String answer){
@@ -113,15 +114,12 @@ public class QuizMaker {
 	public String getWinner(){
 		int highScore = -1;
 		String winners = "";
-		int numTies = 0;
 		for (int i = 0; i < Scores.size(); i++){
 			if((int)Scores.get(i).get(1) > highScore){
 				highScore = (int)Scores.get(i).get(1);
 				winners = (String)Scores.get(i).get(0) + " ";
-				numTies = 0;
 			}
 			else if ((int)Scores.get(i).get(1) == highScore){
-				numTies++;
 				winners += (String)Scores.get(i).get(0) + " ";
 			}
 		}
@@ -150,8 +148,19 @@ public class QuizMaker {
 	
 	// Method:	"getQuestion(String)"
 	// Purpose:	To Return the main question
-	public String getQuestionAnswers(String question){
-		return "";
+	public String[] getAllQuestionAnswers(String question){
+		String[] questions = null;
+		for (int i =0; i < allQuestions.size(); i++){
+			if(allQuestions.get(i).get(0).equals(question)){
+				questions = new String[allQuestions.get(i).size()-1];
+				int index = 0;
+				for (int j = 1; j < allQuestions.get(i).size(); j++){
+					questions[index] = allQuestions.get(i).get(j);
+					index++;
+				}
+			}
+		}
+		return questions;
 	}
 	
 }
