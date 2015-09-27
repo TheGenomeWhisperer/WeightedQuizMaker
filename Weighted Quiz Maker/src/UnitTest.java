@@ -115,5 +115,59 @@ public class UnitTest {
 		}
 		names.close();
 	}
+	
+	@Test
+	public void setAnswerTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Aaron";
+		String C2 = "Abby";
+		String C3 = "Allison";
+		String C4 = "Amelia";
+		String Q1 = "What day is it?";
+		String A1 = "Monday";
+		String A1_2 = "Tuesday";
+		String A1_3 = "Wednesday";
+		String Q2 = "Today is a Good day, right?";
+		test.setQuestion(Q1);
+		test.setQuestion(Q2);
+		test.setCandidate(C1);
+		test.setCandidate(C3);
+		test.setCandidate(C2);
+		test.setCandidate(C4);
+//		test.setAnswerChoice(Q1, A1);
+		for (int i = 0; i <test.allQuestions.size(); i++){
+			System.out.println(test.allQuestions.get(i).get(0));
+		}
+//		for (int i = 0; i < test.answerWeights.size(); i++){
+//			System.out.println(test.answerWeights.get(i).get(0));
+//		}
+//		
+	}
+	
+	@Test
+	public void setDefaultWeightTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Aaron";
+		String C2 = "Abby";
+		String C3 = "Allison";
+		String C4 = "Amelia";
+		String Q1 = "What day is it?";
+		String A1 = "Monday";
+		String A1_2 = "Tuesday";
+		String A1_3 = "Wednesday";
+		test.setCandidate(C1);
+		test.setCandidate(C3);
+		test.setCandidate(C2);
+		test.setCandidate(C4);
+		test.setQuestion(Q1);
+		test.setAnswerChoice(Q1, A1);
+		test.setAnswerChoice(Q1, A1_2);
+		test.setAnswerChoice(Q1, A1_3);
+		System.out.println(test.answerWeights.get(0).size());
+		for(int i = 0; i < test.answerWeights.get(0).size(); i++){
+
+			System.out.println(test.answerWeights.get(0).get(i));
+		}
+	}
 
 }

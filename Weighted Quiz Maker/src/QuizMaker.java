@@ -4,13 +4,18 @@ import java.io.*;
 public class QuizMaker {
 	
 	// Instance Variables
-	public ArrayList<List<String>> allQuestions = new ArrayList<List<String>>();
 	public List<String> allCandidates = new ArrayList<String>();
+	public ArrayList<List<String>> allQuestions = new ArrayList<List<String>>();
 	public ArrayList<List<Object>> Scores = new ArrayList<List<Object>>();
-	public ArrayList<List<Integer>> weights = new ArrayList<List<Integer>>();
+	public ArrayList<List<Object>> answerWeights = new ArrayList<List<Object>>();
 
 	// Default Constructor
-	public QuizMaker(){}
+	public QuizMaker(){
+		// Initializing the weighted column, eliminating array[0][0] position with a null.
+		// This ensures all added answer questions and qualifying candidates fill the rest of the Row/Columns
+		List<Object> list = Arrays.asList(0);
+		answerWeights.add(0,list);
+	}
 	
 	public void addScore(String candidate, int num){
 		for (int i = 0; i < Scores.size(); i++){
@@ -38,6 +43,20 @@ public class QuizMaker {
 		allCandidates.add(candidate);
 		List<Object> thisList = Arrays.asList(candidate,0);
 		Scores.add(thisList);
+		// Now adding default weights for candidate for each question choice option.
+		int index = 0;
+		List<Object> list = Arrays.asList(candidate);
+		answerWeights.add(list);
+		// Determining index of where it was placed
+		for (int i = 0; i < answerWeights.size(); i++){
+			if (answerWeights.get(i).equals(candidate)){
+				index = i;
+			}
+		}
+		// Defaulting all possible answers to zero for the given candidate.
+		for (int i = 1; i < answerWeights.get(0).size(); i++){
+			answerWeights.get(index).add(i,0);
+		}
 	}
 	
 	public void setAnswerChoice(String question, String answer){
@@ -47,6 +66,13 @@ public class QuizMaker {
 				break;
 			}
 		}
+		// Now set default weight to zero for all candidates.
+//		answerWeights.get(0).ge
+//		System.out.println(answerWeights.get(0).get(1));
+//		int index = answerWeights.get(0).indexOf(answer);
+//		for (int i = 1; i < answerWeights.size(); i++){
+//			answerWeights.get(i).set(index, 0);
+//		}
 	}
 	
 	public void removeAnswerChoice(String question, String answer){
@@ -140,14 +166,15 @@ public class QuizMaker {
 		names.close();
 		return numWinners;
 	}
+	
+	// Method:	"getQuestion(String)"
+	// Purpose:	To Return the main question
 	public String getQuestion(int num){
 		// Getting number to play nicely with the index of the arrays.
 		num = num - 1;
 		return allQuestions.get(num).get(0);
 	}
 	
-	// Method:	"getQuestion(String)"
-	// Purpose:	To Return the main question
 	public String[] getAllQuestionAnswers(String question){
 		String[] questions = null;
 		for (int i =0; i < allQuestions.size(); i++){
