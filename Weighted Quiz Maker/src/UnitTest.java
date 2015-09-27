@@ -128,13 +128,18 @@ public class UnitTest {
 		String A1_2 = "Tuesday";
 		String A1_3 = "Wednesday";
 		String Q2 = "Today is a Good day, right?";
+		String A2 = "Yes!";
+		String A2_2 = "No!";
+		String A3_3 = "It is Ok...";
 		test.setQuestion(Q1);
 		test.setQuestion(Q2);
 		test.setCandidate(C1);
 		test.setCandidate(C3);
 		test.setCandidate(C2);
 		test.setCandidate(C4);
-//		test.setAnswerChoice(Q1, A1);
+		test.setAnswerChoice(Q1, A1);
+		test.setAnswerChoice(Q1, A1_2);
+		test.setAnswerChoice(Q1, A1_3);
 		for (int i = 0; i <test.allQuestions.size(); i++){
 			System.out.println(test.allQuestions.get(i).get(0));
 		}

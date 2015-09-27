@@ -62,12 +62,17 @@ public class QuizMaker {
 	public void setAnswerChoice(String question, String answer){
 		for (int i = 0; i < allQuestions.size(); i++){
 			if (allQuestions.get(i).get(0).equals(question)){
-				allQuestions.get(i).add(answer);
+				String[] test = allQuestions.get(i).toArray(new String[allQuestions.get(i).size()+ 1]);
+				test[test.length - 1] = answer;
+				for (int j = 0; j < test.length; j++){
+					System.out.println(test[j]);
+				}
+//				allQuestions.get(i).add(answer);				
 				break;
 			}
 		}
 		// Now set default weight to zero for all candidates.
-//		answerWeights.get(0).ge
+//		answerWeights.get(0).gedd
 //		System.out.println(answerWeights.get(0).get(1));
 //		int index = answerWeights.get(0).indexOf(answer);
 //		for (int i = 1; i < answerWeights.size(); i++){
