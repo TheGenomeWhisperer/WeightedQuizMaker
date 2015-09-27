@@ -130,7 +130,7 @@ public class UnitTest {
 		String Q2 = "Today is a Good day, right?";
 		String A2 = "Yes!";
 		String A2_2 = "No!";
-		String A3_3 = "It is Ok...";
+		String A2_3 = "It is Ok...";
 		test.setQuestion(Q1);
 		test.setQuestion(Q2);
 		test.setCandidate(C1);
@@ -140,6 +140,14 @@ public class UnitTest {
 		test.setAnswerChoice(Q1, A1);
 		test.setAnswerChoice(Q1, A1_2);
 		test.setAnswerChoice(Q1, A1_3);
+		test.setAnswerChoice(Q2, A2);
+		test.setAnswerChoice(Q2, A2_2);
+		test.setAnswerChoice(Q2, A2_3);
+		for (int i = 0; i < test.allQuestions.size(); i++){
+			for (int j = 0; j < test.allQuestions.get(i).size(); j++){
+				System.out.println(test.allQuestions.get(i).get(j));
+			}
+		}
 		for (int i = 0; i <test.allQuestions.size(); i++){
 			System.out.println(test.allQuestions.get(i).get(0));
 		}
@@ -168,6 +176,7 @@ public class UnitTest {
 		test.setAnswerChoice(Q1, A1);
 		test.setAnswerChoice(Q1, A1_2);
 		test.setAnswerChoice(Q1, A1_3);
+
 		System.out.println(test.answerWeights.get(0).size());
 		for(int i = 0; i < test.answerWeights.get(0).size(); i++){
 

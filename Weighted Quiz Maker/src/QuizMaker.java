@@ -62,12 +62,12 @@ public class QuizMaker {
 	public void setAnswerChoice(String question, String answer){
 		for (int i = 0; i < allQuestions.size(); i++){
 			if (allQuestions.get(i).get(0).equals(question)){
+				// Converting arraylist to array, adding variables, then converting back to arraylist.
 				String[] test = allQuestions.get(i).toArray(new String[allQuestions.get(i).size()+ 1]);
 				test[test.length - 1] = answer;
-				for (int j = 0; j < test.length; j++){
-					System.out.println(test[j]);
-				}
-//				allQuestions.get(i).add(answer);				
+				// converting back now.
+				List<String> result = Arrays.asList(test);
+				allQuestions.set(i,result);
 				break;
 			}
 		}
