@@ -117,7 +117,7 @@ public class UnitTest {
 	}
 	
 	@Test
-	public void setAnswerTest(){
+	public void setAnswerAndQuestionTest(){
 		QuizMaker test = new QuizMaker();
 		String C1 = "Aaron";
 		String C2 = "Abby";
@@ -148,9 +148,9 @@ public class UnitTest {
 				System.out.println(test.allQuestions.get(i).get(j));
 			}
 		}
-		for (int i = 0; i <test.allQuestions.size(); i++){
-			System.out.println(test.allQuestions.get(i).get(0));
-		}
+		assertTrue(test.allQuestions.get(0).get(0).equals(Q1));
+		assertTrue(test.allQuestions.get(0).get(1).equals(A1));
+		assertTrue(test.allQuestions.get(1).get(3).equals(A2_3));
 //		for (int i = 0; i < test.answerWeights.size(); i++){
 //			System.out.println(test.answerWeights.get(i).get(0));
 //		}
