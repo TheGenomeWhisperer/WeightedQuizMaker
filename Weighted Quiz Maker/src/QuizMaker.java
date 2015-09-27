@@ -13,7 +13,8 @@ public class QuizMaker {
 	public QuizMaker(){
 		// Initializing the weighted column, eliminating array[0][0] position with a null.
 		// This ensures all added answer questions and qualifying candidates fill the rest of the Row/Columns
-		List<Object> list = Arrays.asList(0);
+		List<Object> list = new ArrayList<Object>();
+		list.add("");
 		answerWeights.add(0,list);
 	}
 	
@@ -28,14 +29,16 @@ public class QuizMaker {
 	}
 
 	public void setQuestion(String question){
-		List<String> leadQuestion = Arrays.asList(question);
+		List<String> leadQuestion = new ArrayList<>();
+		leadQuestion.add(question);
 		allQuestions.add(leadQuestion);
 	}
 	
 	public void setQuestionAt(int position, String question){
 		// Makes position play nice with array index.
 		position = position -1;
-		List<String> leadQuestion = Arrays.asList(question);
+		List<String> leadQuestion = new ArrayList<>();
+		leadQuestion.add(question);
 		allQuestions.add(position, leadQuestion);
 	}
 	
@@ -45,7 +48,8 @@ public class QuizMaker {
 		Scores.add(thisList);
 		// Now adding default weights for candidate for each question choice option.
 		int index = 0;
-		List<Object> list = Arrays.asList(candidate);
+		List<Object> list = new ArrayList<>();
+		list.add(candidate);
 		answerWeights.add(list);
 		// Determining index of where it was placed
 		for (int i = 0; i < answerWeights.size(); i++){
@@ -62,22 +66,16 @@ public class QuizMaker {
 	public void setAnswerChoice(String question, String answer){
 		for (int i = 0; i < allQuestions.size(); i++){
 			if (allQuestions.get(i).get(0).equals(question)){
-				// Converting arraylist to array, adding variables, then converting back to arraylist.
-				String[] test = allQuestions.get(i).toArray(new String[allQuestions.get(i).size()+ 1]);
-				test[test.length - 1] = answer;
-				// converting back now.
-				List<String> result = Arrays.asList(test);
-				allQuestions.set(i,result);
+				allQuestions.get(i).add(answer);
 				break;
 			}
 		}
 		// Now set default weight to zero for all candidates.
-//		answerWeights.get(0).gedd
-//		System.out.println(answerWeights.get(0).get(1));
-//		int index = answerWeights.get(0).indexOf(answer);
-//		for (int i = 1; i < answerWeights.size(); i++){
-//			answerWeights.get(i).set(index, 0);
-//		}
+		answerWeights.get(0).add(answer);
+		int index = answerWeights.get(0).indexOf(answer);
+		for (int i = 1; i < answerWeights.size(); i++){
+			answerWeights.get(i).add(index,0);
+		}
 	}
 	
 	public void removeAnswerChoice(String question, String answer){
