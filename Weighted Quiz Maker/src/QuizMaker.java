@@ -109,7 +109,7 @@ public class QuizMaker {
 		}
 		for (int i = 1; i < answerWeights.get(0).size(); i++){
 			if (answerWeights.get(0).get(i).equals(answer)){
-				answerWeights.get(index).set(i, weight);
+				answerWeights.get(index).set(i,weight);
 			}
 		}
 	}
