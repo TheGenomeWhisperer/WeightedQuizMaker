@@ -162,4 +162,40 @@ public class UnitTest {
 			}
 		}
 	}
+	
+	@Test
+	public void weightsTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Aaron";
+		String C2 = "Abby";
+		String C3 = "Allison";
+		String C4 = "Amelia";
+		String Q1 = "What day is it?";
+		String A1 = "Monday";
+		String A1_2 = "Tuesday";
+		String A1_3 = "Wednesday";
+		String Q2 = "Today is a Good day, right?";
+		String A2 = "Yes!";
+		String A2_2 = "No!";
+		String A2_3 = "It is Ok...";
+		test.setQuestion(Q1);
+		test.setQuestion(Q2);
+		test.setCandidate(C1);
+		test.setCandidate(C3);
+		test.setCandidate(C2);
+		test.setCandidate(C4);
+		test.setAnswerChoice(Q1, A1);
+		test.setAnswerChoice(Q1, A1_2);
+		test.setAnswerChoice(Q1, A1_3);
+		test.setAnswerChoice(Q2, A2);
+		test.setAnswerChoice(Q2, A2_2);
+		test.setAnswerChoice(Q2, A2_3);
+		test.setWeight(C1, A1, 5);
+		test.setWeight(C1, A1_2, 0);
+		test.setWeight(C1, A1_3, 1);
+		assertEquals(5,test.getWeight(C1, A1));
+		assertEquals(0,test.getWeight(C1, A1_2));
+		test.setWeight(C1, A1, -5000);
+		assertEquals(-5000,test.getWeight(C1, A1));
+	}
 }

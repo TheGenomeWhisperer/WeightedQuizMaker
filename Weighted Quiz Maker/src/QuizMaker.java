@@ -101,7 +101,33 @@ public class QuizMaker {
 	}
 	
 	public void setWeight(String candidate, String answer, int weight){
-		
+		int index = 0;
+		for (int i = 1; i < answerWeights.size(); i++) {
+			if (answerWeights.get(i).get(0).equals(candidate)){
+				index = i;
+			}
+		}
+		for (int i = 1; i < answerWeights.get(0).size(); i++){
+			if (answerWeights.get(0).get(i).equals(answer)){
+				answerWeights.get(index).set(i, weight);
+			}
+		}
+	}
+	
+	public int getWeight(String candidate, String answer){
+		int weight = 0;
+		int index = 0;
+		for (int i = 1; i < answerWeights.size(); i++) {
+			if (answerWeights.get(i).get(0).equals(candidate)){
+				index = i;
+			}
+		}
+		for (int i = 1; i < answerWeights.get(0).size(); i++){
+			if (answerWeights.get(0).get(i).equals(answer)){
+				weight = (int)answerWeights.get(index).get(i);
+			}
+		}
+		return weight;
 	}
 	
 	public void resetWeightForQuestion(){
