@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 
 public class QuizMaker {
 	
@@ -92,7 +91,6 @@ public class QuizMaker {
 		}
 		// Now removing it from weighted options
 		removeAnswerFromWeights(answer);
-		
 	}
 	
 	private void removeAnswerFromWeights(String answer) {
@@ -101,6 +99,19 @@ public class QuizMaker {
 			answerWeights.get(i).remove(index);
 		}
 	}
+	
+	public void setWeight(String candidate, String answer, int weight){
+		
+	}
+	
+	public void resetWeightForQuestion(){
+		
+	}
+	
+	public void restAllWeights(){
+		
+	}
+	
 	public void removeCandidate(String candidate){
 		// Remove from allCandidates
 		for (int i = 0; i < allCandidates.size(); i++){
