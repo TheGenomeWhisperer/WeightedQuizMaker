@@ -24,9 +24,6 @@ public class UnitTest {
 		assertEquals(Q1, test.getQuestion(1));
 		assertEquals(Q2, test.getQuestion(2));
 		assertTrue(Q4.equals(test.getQuestion(3)));
-		for (int i = 0; i < test.allQuestions.size(); i++){
-			System.out.println(test.allQuestions.get(i).get(0));
-		}
 	}
 	
 	@Test
@@ -84,7 +81,6 @@ public class UnitTest {
 		test.addScore(C3, 2);
 		test.addScore(C2, 20);
 		test.addScore(C4,0);
-		System.out.println(test.getWinner());
 	}
 	
 	@Test
@@ -105,19 +101,12 @@ public class UnitTest {
 		test.addScore(C2, 100);
 		test.addScore(C4,100);
 		int num = test.getNumWinners();
-		System.out.println(num);
 		Scanner names = new Scanner(test.getWinner());
-		if (num > 1) {
-			System.out.println("You are tied in compatibility with " + num + " Candidates!\nThey are:");
-			while(names.hasNext()){
-				System.out.println(names.next());
-			}
-		}
 		names.close();
 	}
 	
 	@Test
-	public void setAnswerAndQuestionTest(){
+	public void setAnswerAndQuestionsTest(){
 		QuizMaker test = new QuizMaker();
 		String C1 = "Aaron";
 		String C2 = "Abby";
@@ -143,18 +132,9 @@ public class UnitTest {
 		test.setAnswerChoice(Q2, A2);
 		test.setAnswerChoice(Q2, A2_2);
 		test.setAnswerChoice(Q2, A2_3);
-		for (int i = 0; i < test.allQuestions.size(); i++){
-			for (int j = 0; j < test.allQuestions.get(i).size(); j++){
-				System.out.println(test.allQuestions.get(i).get(j));
-			}
-		}
 		assertTrue(test.allQuestions.get(0).get(0).equals(Q1));
 		assertTrue(test.allQuestions.get(0).get(1).equals(A1));
 		assertTrue(test.allQuestions.get(1).get(3).equals(A2_3));
-//		for (int i = 0; i < test.answerWeights.size(); i++){
-//			System.out.println(test.answerWeights.get(i).get(0));
-//		}
-//		
 	}
 	
 	@Test
@@ -176,12 +156,46 @@ public class UnitTest {
 		test.setAnswerChoice(Q1, A1);
 		test.setAnswerChoice(Q1, A1_2);
 		test.setAnswerChoice(Q1, A1_3);
-
-		System.out.println(test.answerWeights.get(0).size());
-		for(int i = 0; i < test.answerWeights.get(0).size(); i++){
-
-			System.out.println(test.answerWeights.get(0).get(i));
+		for(int i = 1; i < test.answerWeights.size(); i++){
+			for (int j = 1; j < test.answerWeights.get(0).size(); j++) {
+				assertTrue(test.answerWeights.get(i).get(j).equals(0));
+			}
 		}
 	}
-
+	
+	@Test
+	public void weightsTest(){
+		QuizMaker test = new QuizMaker();
+		String C1 = "Aaron";
+		String C2 = "Abby";
+		String C3 = "Allison";
+		String C4 = "Amelia";
+		String Q1 = "What day is it?";
+		String A1 = "Monday";
+		String A1_2 = "Tuesday";
+		String A1_3 = "Wednesday";
+		String Q2 = "Today is a Good day, right?";
+		String A2 = "Yes!";
+		String A2_2 = "No!";
+		String A2_3 = "It is Ok...";
+		test.setQuestion(Q1);
+		test.setQuestion(Q2);
+		test.setCandidate(C1);
+		test.setCandidate(C3);
+		test.setCandidate(C2);
+		test.setCandidate(C4);
+		test.setAnswerChoice(Q1, A1);
+		test.setAnswerChoice(Q1, A1_2);
+		test.setAnswerChoice(Q1, A1_3);
+		test.setAnswerChoice(Q2, A2);
+		test.setAnswerChoice(Q2, A2_2);
+		test.setAnswerChoice(Q2, A2_3);
+		test.setWeight(C1, A1, 5);
+		test.setWeight(C1, A1_2, 0);
+		test.setWeight(C1, A1_3, 1);
+		assertEquals(5,test.getWeight(C1, A1));
+		assertEquals(0,test.getWeight(C1, A1_2));
+		test.setWeight(C1, A1, -5000);
+		assertEquals(-5000,test.getWeight(C1, A1));
+	}
 }
