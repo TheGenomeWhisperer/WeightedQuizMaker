@@ -156,9 +156,9 @@ public class UnitTest {
 		test.setAnswerChoice(Q1, A1);
 		test.setAnswerChoice(Q1, A1_2);
 		test.setAnswerChoice(Q1, A1_3);
-		for(int i = 0; i < test.answerWeights.size(); i++){
-			for (int j = 0; j < test.answerWeights.get(0).size(); j++) {
-				System.out.println(test.answerWeights.get(i).get(j));
+		for(int i = 1; i < test.answerWeights.size(); i++){
+			for (int j = 1; j < test.answerWeights.get(0).size(); j++) {
+				assertTrue(test.answerWeights.get(i).get(j).equals(0));
 			}
 		}
 	}

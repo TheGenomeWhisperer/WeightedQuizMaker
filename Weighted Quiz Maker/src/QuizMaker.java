@@ -90,6 +90,16 @@ public class QuizMaker {
 				break;
 			}
 		}
+		// Now removing it from weighted options
+		removeAnswerFromWeights(answer);
+		
+	}
+	
+	private void removeAnswerFromWeights(String answer) {
+		int index = answerWeights.get(0).indexOf(answer);
+		for (int i = 0; i < answerWeights.size(); i++){
+			answerWeights.get(i).remove(index);
+		}
 	}
 	public void removeCandidate(String candidate){
 		// Remove from allCandidates
@@ -99,10 +109,17 @@ public class QuizMaker {
 				break;
 			}
 		}
-		// Remove from thinner List
+		// Remove from smaller reference List
 		for (int i = 0; i < Scores.size(); i++){
 			if (Scores.get(i).get(0).equals(candidate)){
 				Scores.get(i).remove(0);
+				break;
+			}
+		}
+		// Remove all associated Weights
+		for (int i = 0; i < answerWeights.size(); i++){
+			if (answerWeights.get(i).get(0).equals(candidate)){
+				answerWeights.remove(i);
 				break;
 			}
 		}
@@ -120,6 +137,11 @@ public class QuizMaker {
 			System.out.println("Question Not Found");
 		}
 		else {
+			// Removing answer options from the weights
+			for (int i = 1; i < allQuestions.get(index).size(); i++){
+				removeAnswerFromWeights(allQuestions.get(index).get(i));
+			}
+			// Full removal of question with accompanying answers.
 			allQuestions.remove(index);
 		}
 	}
