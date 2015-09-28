@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 
 public class QuizMaker {
 	
@@ -90,7 +89,55 @@ public class QuizMaker {
 				break;
 			}
 		}
+		// Now removing it from weighted options
+		removeAnswerFromWeights(answer);
 	}
+	
+	private void removeAnswerFromWeights(String answer) {
+		int index = answerWeights.get(0).indexOf(answer);
+		for (int i = 0; i < answerWeights.size(); i++){
+			answerWeights.get(i).remove(index);
+		}
+	}
+	
+	public void setWeight(String candidate, String answer, int weight){
+		int index = 0;
+		for (int i = 1; i < answerWeights.size(); i++) {
+			if (answerWeights.get(i).get(0).equals(candidate)){
+				index = i;
+			}
+		}
+		for (int i = 1; i < answerWeights.get(0).size(); i++){
+			if (answerWeights.get(0).get(i).equals(answer)){
+				answerWeights.get(index).set(i,weight);
+			}
+		}
+	}
+	
+	public int getWeight(String candidate, String answer){
+		int weight = 0;
+		int index = 0;
+		for (int i = 1; i < answerWeights.size(); i++) {
+			if (answerWeights.get(i).get(0).equals(candidate)){
+				index = i;
+			}
+		}
+		for (int i = 1; i < answerWeights.get(0).size(); i++){
+			if (answerWeights.get(0).get(i).equals(answer)){
+				weight = (int)answerWeights.get(index).get(i);
+			}
+		}
+		return weight;
+	}
+	
+	public void resetWeightForQuestion(){
+		
+	}
+	
+	public void restAllWeights(){
+		
+	}
+	
 	public void removeCandidate(String candidate){
 		// Remove from allCandidates
 		for (int i = 0; i < allCandidates.size(); i++){
@@ -99,10 +146,17 @@ public class QuizMaker {
 				break;
 			}
 		}
-		// Remove from thinner List
+		// Remove from smaller reference List
 		for (int i = 0; i < Scores.size(); i++){
 			if (Scores.get(i).get(0).equals(candidate)){
 				Scores.get(i).remove(0);
+				break;
+			}
+		}
+		// Remove all associated Weights
+		for (int i = 0; i < answerWeights.size(); i++){
+			if (answerWeights.get(i).get(0).equals(candidate)){
+				answerWeights.remove(i);
 				break;
 			}
 		}
@@ -120,6 +174,11 @@ public class QuizMaker {
 			System.out.println("Question Not Found");
 		}
 		else {
+			// Removing answer options from the weights
+			for (int i = 1; i < allQuestions.get(index).size(); i++){
+				removeAnswerFromWeights(allQuestions.get(index).get(i));
+			}
+			// Full removal of question with accompanying answers.
 			allQuestions.remove(index);
 		}
 	}
