@@ -100,9 +100,11 @@ public class UnitTest {
 		test.addScore(C3, 2);
 		test.addScore(C2, 100);
 		test.addScore(C4,100);
-		int num = test.getNumWinners();
-		Scanner names = new Scanner(test.getWinner());
-		names.close();
+		assertEquals(3,test.getNumWinners());
+		test.addScore(C4, 1);
+		assertEquals(1,test.getNumWinners());
+		test.addScore(C4, -1);
+		assertEquals(3,test.getNumWinners());
 	}
 	
 	@Test
@@ -197,5 +199,20 @@ public class UnitTest {
 		assertEquals(0,test.getWeight(C1, A1_2));
 		test.setWeight(C1, A1, -5000);
 		assertEquals(-5000,test.getWeight(C1, A1));
+		test.setWeight(C2, A2, 42);
+		test.setWeight(C2, A2_2, 15);
+		test.setWeight(C2, A2_3, 1);
+		assertEquals(42,test.getWeight(C2, A2));
+		test.resetAllWeights();
+		assertEquals(0,test.getWeight(C2, A2));
+		assertEquals(0,test.getWeight(C1, A1));
+		test.setWeight(C2, A2, 42);
+		test.setWeight(C2, A2_2, 15);
+		test.setWeight(C2, A2_3, 1);
+		test.resetAllWeightsForAnswer(A2);
+		int index = test.answerWeights.get(0).indexOf(A2);
+		for (int i = 1; i < test.answerWeights.size(); i++){
+			assertEquals(0,test.answerWeights.get(i).get(index));
+		}
 	}
 }
