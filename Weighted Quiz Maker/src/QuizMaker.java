@@ -202,10 +202,10 @@ public class QuizMaker {
 		for (int i = 0; i < Scores.size(); i++){
 			if((int)Scores.get(i).get(1) > highScore){
 				highScore = (int)Scores.get(i).get(1);
-				winners = (String)Scores.get(i).get(0) + " ";
+				winners = (String)Scores.get(i).get(0) + "\n";
 			}
 			else if ((int)Scores.get(i).get(1) == highScore){
-				winners += (String)Scores.get(i).get(0) + " ";
+				winners += (String)Scores.get(i).get(0) + "\n";
 			}
 		}
 		return winners.trim();
@@ -215,11 +215,11 @@ public class QuizMaker {
 		int numWinners = 1;
 		String winners = getWinner();
 		Scanner names = new Scanner(winners);
-		if (winners.contains(" ")){
-			names.next();
-			while (names.hasNext()){
+		if (winners.contains("\n")){
+			names.nextLine();
+			while (names.hasNextLine()){
 				numWinners++;
-				names.next();
+				names.nextLine();
 			}
 		}
 		names.close();
