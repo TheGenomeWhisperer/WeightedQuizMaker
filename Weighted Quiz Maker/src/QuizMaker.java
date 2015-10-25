@@ -77,29 +77,6 @@ public class QuizMaker {
 		}
 	}
 	
-	public void removeAnswerChoice(String question, String answer){
-		for (int i = 0; i < allQuestions.size(); i++){
-			if (allQuestions.get(i).get(0).equals(question)){
-				for (int j = 0; j < allQuestions.get(i).size(); j++) {
-					if (allQuestions.get(i).get(j).equals(question)){
-						allQuestions.get(i).remove(j);
-						break;
-					}
-				}
-				break;
-			}
-		}
-		// Now removing it from weighted options
-		removeAnswerFromWeights(answer);
-	}
-	
-	private void removeAnswerFromWeights(String answer) {
-		int index = answerWeights.get(0).indexOf(answer);
-		for (int i = 0; i < answerWeights.size(); i++){
-			answerWeights.get(i).remove(index);
-		}
-	}
-	
 	public void setWeight(String candidate, String answer, int weight){
 		int index = 0;
 		for (int i = 1; i < answerWeights.size(); i++) {
@@ -109,33 +86,9 @@ public class QuizMaker {
 		}
 		for (int i = 1; i < answerWeights.get(0).size(); i++){
 			if (answerWeights.get(0).get(i).equals(answer)){
-				answerWeights.get(index).set(i, weight);
+				answerWeights.get(index).set(i,weight);
 			}
 		}
-	}
-	
-	public int getWeight(String candidate, String answer){
-		int weight = 0;
-		int index = 0;
-		for (int i = 1; i < answerWeights.size(); i++) {
-			if (answerWeights.get(i).get(0).equals(candidate)){
-				index = i;
-			}
-		}
-		for (int i = 1; i < answerWeights.get(0).size(); i++){
-			if (answerWeights.get(0).get(i).equals(answer)){
-				weight = (int)answerWeights.get(index).get(i);
-			}
-		}
-		return weight;
-	}
-	
-	public void resetWeightForQuestion(){
-		
-	}
-	
-	public void restAllWeights(){
-		
 	}
 	
 	public void removeCandidate(String candidate){
@@ -183,12 +136,56 @@ public class QuizMaker {
 		}
 	}
 	
+	public void removeAnswerChoice(String question, String answer){
+		for (int i = 0; i < allQuestions.size(); i++){
+			if (allQuestions.get(i).get(0).equals(question)){
+				for (int j = 0; j < allQuestions.get(i).size(); j++) {
+					if (allQuestions.get(i).get(j).equals(question)){
+						allQuestions.get(i).remove(j);
+						break;
+					}
+				}
+				break;
+			}
+		}
+		// Now removing it from weighted options
+		removeAnswerFromWeights(answer);
+	}
+
+	private void removeAnswerFromWeights(String answer) {
+		int index = answerWeights.get(0).indexOf(answer);
+		for (int i = 0; i < answerWeights.size(); i++){
+			answerWeights.get(i).remove(index);
+		}
+	}
+
 	public void resetAllScores(){
 		for (int i = 0; i < Scores.size(); i++){
 			Scores.get(i).set(1, 0);
 		}
 	}
 	
+	public void resetAllWeights(){
+		for (int i = 1; i < answerWeights.size(); i++){
+			for (int j = 1; j < answerWeights.get(0).size(); j++){
+				answerWeights.get(i).set(j, 0);
+			}
+		}
+	}
+
+	public void resetAllWeightsForAnswer(String answer){
+		int index = 0;
+		for (int i = 1; i < answerWeights.size(); i++){
+			for (int j = 1; j < answerWeights.get(0).size(); j++){
+				if (answerWeights.get(0).get(j).equals(answer)){
+					index = j;
+					break;
+				}
+			}
+			answerWeights.get(i).set(index, 0);
+		}
+	}
+
 	public int getScore(String candidate){
 		for (int i = 0; i < Scores.size(); i++){
 			if (Scores.get(i).get(0).equals(candidate)){
@@ -205,10 +202,10 @@ public class QuizMaker {
 		for (int i = 0; i < Scores.size(); i++){
 			if((int)Scores.get(i).get(1) > highScore){
 				highScore = (int)Scores.get(i).get(1);
-				winners = (String)Scores.get(i).get(0) + " ";
+				winners = (String)Scores.get(i).get(0) + "\n";
 			}
 			else if ((int)Scores.get(i).get(1) == highScore){
-				winners += (String)Scores.get(i).get(0) + " ";
+				winners += (String)Scores.get(i).get(0) + "\n";
 			}
 		}
 		return winners.trim();
@@ -218,11 +215,11 @@ public class QuizMaker {
 		int numWinners = 1;
 		String winners = getWinner();
 		Scanner names = new Scanner(winners);
-		if (winners.contains(" ")){
-			names.next();
-			while (names.hasNext()){
+		if (winners.contains("\n")){
+			names.nextLine();
+			while (names.hasNextLine()){
 				numWinners++;
-				names.next();
+				names.nextLine();
 			}
 		}
 		names.close();
@@ -237,6 +234,22 @@ public class QuizMaker {
 		return allQuestions.get(num).get(0);
 	}
 	
+	public int getWeight(String candidate, String answer){
+		int weight = 0;
+		int index = 0;
+		for (int i = 1; i < answerWeights.size(); i++) {
+			if (answerWeights.get(i).get(0).equals(candidate)){
+				index = i;
+			}
+		}
+		for (int i = 1; i < answerWeights.get(0).size(); i++){
+			if (answerWeights.get(0).get(i).equals(answer)){
+				weight = (int)answerWeights.get(index).get(i);
+			}
+		}
+		return weight;
+	}
+
 	public String[] getAllQuestionAnswers(String question){
 		String[] questions = null;
 		for (int i =0; i < allQuestions.size(); i++){
